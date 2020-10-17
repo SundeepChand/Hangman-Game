@@ -18,7 +18,6 @@ GameManager::GameManager(): MAX_TRIES(5)
     ifstream fin("./data/scores.txt");
     if (!fin)
     {
-        cout<<"File does not exist"<<endl;
         // File doesn't exist.
         system("mkdir data");
         ofstream fout("./data/scores.txt");
@@ -167,4 +166,35 @@ void GameManager::updateHighScores(int current_score)
         fout<<it->first<<" "<<(-it->second)<<endl;
     }
     fout.close();
+}
+
+void GameManager::showHighScores()
+{
+    ifstream fin("data/scores.txt");
+    system("cls");
+    cout<<"\tTOP SCORERS"<<endl;
+
+    string n;
+    int score;
+    fin>>n;
+    int i = 1;
+    while (!fin.eof())
+    {
+        fin>>score;
+        cout<<i<<". "<<n<<"   "<<score<<endl;
+        fin>>n;
+        i++;
+    }
+    if (i == 1)
+    {
+        cout<<"No entries yet."<<endl;
+        cout<<"Be the first one to get your name listed."<<endl;
+        cout<<"Hurry up!"<<endl;
+    }
+
+    cout<<"---------------------------------------------"<<endl;
+    cout<<endl;
+    cout<<"Press any key to continue."<<endl;
+    cin.ignore();
+    cin.get();
 }

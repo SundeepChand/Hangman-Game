@@ -28,6 +28,7 @@ class GameManager
         void showRules();
         void startGame();
         void showTitle();
+        void showHighScores();
 };
 
 #endif

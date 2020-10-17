@@ -30,7 +30,7 @@ int main()
         }
         else if (choice == 2)
         {
-            // game.showScores();
+            game.showHighScores();
         }
         else if (choice == 3)
         {
