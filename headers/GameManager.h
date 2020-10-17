@@ -11,20 +11,18 @@ class GameManager
 {
     private:
         const int MAX_TRIES;
-        int num_of_wrong_guesses, n;
         string name;
-        char letter;
         string word;
         string words[10];
-        string unknown;
 
-    public:
-        void showMenu();
-        void startGame();
+    private:
         int letterFill (char, string, string&);
 
     public:
         GameManager();
+        void showRules();
+        void startGame();
+        void showTitle();
 };
 
 #endif
