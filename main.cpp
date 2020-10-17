@@ -23,7 +23,7 @@ int main()
             char ch;
             do {
                 game.startGame();
-                cout<<"Do you want to play again? (y/n): ";
+                cout<<"Want to play again? (y/n): ";
                 cin>>ch;
             } while (ch == 'y');
         }

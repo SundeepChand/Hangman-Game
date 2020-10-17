@@ -16,7 +16,7 @@ class GameManager
         string words[10];
 
     private:
-        int letterFill (char, string, string&);
+        int letterFill (char, string&);
 
     public:
         GameManager();
