@@ -12,6 +12,19 @@ GameManager::GameManager(): MAX_TRIES(5)
 	words[7] = "ethiopia";
 	words[8] = "oman";
 	words[9] = "indonesia";
+    player_name = "default";
+
+    // Make sure the high-score file exists, if not then create one
+    ifstream fin("./data/scores.txt");
+    if (!fin)
+    {
+        cout<<"File does not exist"<<endl;
+        // File doesn't exist.
+        system("mkdir data");
+        ofstream fout("./data/scores.txt");
+        fout.close();
+    }
+    fin.close();
 }
 
 void GameManager::showTitle()
@@ -43,7 +56,7 @@ void GameManager::showRules()
 
 void GameManager::startGame()
 {
-    int num_of_wrong_guesses = 0;
+    int num_of_wrong_guesses = 0, cur_score = 100;  // Initialize the current score to 100.
     //choose and copy a word from array of words randomly
 	srand(time(NULL));
 	int n = rand() % 10;
@@ -67,6 +80,7 @@ void GameManager::startGame()
 		{
 			cout<<"Whoops! That letter isn't in there!"<<endl;
 			num_of_wrong_guesses++;
+            cur_score -= 10;    // If player gives a wrong guess deduct 10 pts.
 		}
 		else
 		{
@@ -87,7 +101,14 @@ void GameManager::startGame()
 	{
 		cout<<"\nSorry, you lose...you've been hanged."<<endl;
 		cout<<"The word was : "<<word<<endl;
+        cur_score -= 20;    // If player is unable to guess the country then deduct 20 more.
 	}
+    if (cur_score < 0)
+        cur_score = 0;
+
+    cout<<"You scored: "<<cur_score<<endl;
+    cout<<endl;
+    updateHighScores(cur_score);    // Update the scores in the file.
 }
 
 int GameManager::letterFill(char guess, string &guessword)
@@ -108,4 +129,42 @@ int GameManager::letterFill(char guess, string &guessword)
 		}
 	}
 	return matches;
+}
+
+void GameManager::getPlayerName()
+{
+    cout<<"Please enter your name: ";
+    cin>>player_name;
+}
+
+void GameManager::updateHighScores(int current_score)
+{
+    // Stores the top 10 high scores
+    ifstream fin("./data/scores.txt");
+
+    map<string, int> m;
+    string n;
+    int score;
+    fin>>n;
+    while (!fin.eof())
+    {
+        fin>>score;
+        m[n] = -score;
+        fin>>n;
+    }
+    if (current_score > -m[player_name])
+    {
+        // Update the score of the player only if his/her score 
+        // is greater than the previous score.
+        m[player_name] = -current_score;
+    }
+    fin.close();
+
+    ofstream fout("./data/scores.txt");
+    int i = 0;
+    for (auto it = m.begin(); it != m.end() && i < 10; it++, i++)
+    {
+        fout<<it->first<<" "<<(-it->second)<<endl;
+    }
+    fout.close();
 }

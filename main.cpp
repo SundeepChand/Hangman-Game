@@ -20,6 +20,7 @@ int main()
 
         if (choice == 1)
         {
+            game.getPlayerName();
             char ch;
             do {
                 game.startGame();

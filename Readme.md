@@ -8,5 +8,5 @@ Following are the instructions to compile & run the game.
 
 1. Clone this repository into a directory using `git clone https://github.com/SundeepChand/Hangman-Game.git`.
 2. Navigate to the directory using `cd Hangman-Game`
-3. Compile the program using `g++ main.cpp .\src\GameManager.cpp -o main`
+3. Compile the program using `g++ main.cpp .\src\GameManager.cpp -std=c++14 -o main`
 4. Finally run by using `./main`

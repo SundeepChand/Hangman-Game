@@ -5,6 +5,8 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
+#include <map>
 using namespace std;
 
 class GameManager
@@ -14,12 +16,15 @@ class GameManager
         string name;
         string word;
         string words[10];
+        string player_name;
 
     private:
         int letterFill (char, string&);
+        void updateHighScores(int current_score);
 
     public:
         GameManager();
+        void getPlayerName();
         void showRules();
         void startGame();
         void showTitle();
