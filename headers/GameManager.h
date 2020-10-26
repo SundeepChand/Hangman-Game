@@ -13,7 +13,6 @@ class GameManager
 {
     private:
         const int MAX_TRIES;
-        string name;
         string word;
         string words[10];
         string player_name;

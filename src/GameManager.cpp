@@ -161,7 +161,7 @@ void GameManager::updateHighScores(int current_score)
 
     ofstream fout("./data/scores.txt");
     int i = 0;
-    for (auto it = m.begin(); it != m.end() && i < 10; it++, i++)
+    for (auto it = m.begin(); it != m.end() && i < 5; it++, i++)
     {
         fout<<it->first<<" "<<(-it->second)<<endl;
     }
