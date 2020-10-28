@@ -141,29 +141,24 @@ void GameManager::updateHighScores(int current_score)
     // Stores the top 10 high scores
     ifstream fin("./data/scores.txt");
 
-    map<string, int> m;
-    string n;
+    priority_queue<pair<int, string>> pq;
+    string name;
     int score;
-    fin>>n;
+    fin>>name;
     while (!fin.eof())
     {
         fin>>score;
-        m[n] = -score;
-        fin>>n;
+        pq.push({ score, name});
+        fin>>name;
     }
-    if (current_score > -m[player_name])
-    {
-        // Update the score of the player only if his/her score 
-        // is greater than the previous score.
-        m[player_name] = -current_score;
-    }
+    pq.push({ current_score, player_name });
     fin.close();
 
     ofstream fout("./data/scores.txt");
-    int i = 0;
-    for (auto it = m.begin(); it != m.end() && i < 5; it++, i++)
+    for (int i = 0; !pq.empty() && i < 5; i++)
     {
-        fout<<it->first<<" "<<(-it->second)<<endl;
+        fout<<pq.top().second<<" "<<pq.top().first<<endl;
+        pq.pop();
     }
     fout.close();
 }

@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
-#include <map>
+#include <queue>
 using namespace std;
 
 class GameManager
